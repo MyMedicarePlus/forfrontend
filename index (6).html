@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap demo</title>
+  <link rel="stylesheet" href="style2.0.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      background-color: #343434;
+      overflow-x: hidden;
+      transition: 0.4s;
+      z-index: 1;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidenav.open {
+      left: 0;
+    }
+
+    .sidenav a {
+      padding: 15px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+
+      transition: 0.2s;
+      border-bottom: 1px solid #444;
+    }
+
+    .sidenav a:hover {
+      background-color: #555;
+    }
+
+    .menu-toggle {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .close-button {
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+    }
+
+
+
+
+    .container {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-bar {
+      position: relative;
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .search-icon.v {
+      transform: rotate(180deg);
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-top: none;
+      z-index: 0;
+    }
+
+    .dropdown.open {
+      display: block;
+      background-color: black;
+    }
+
+    .dropdown-option {
+      padding: 10px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .dropdown-option:hover {
+      background-color: black;
+      color: blue;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .search i {
+      margin-right: 5px;
+    }
+
+    #locationInput,
+    #searchInput {
+      flex-grow: 1;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    #searchButton {
+      background-color: #555;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search-bar {
+        margin: 20px 0;
+        position: relative;
+        /* Add this */
+      }
+
+      .search-bar input[type="text"] {
+        width: 100%;
+      }
+
+      .search-icon {
+        position: absolute;
+        /* Add this */
+        top: 50%;
+        transform: translateY(-50%);
+        /* Center vertically */
+        right: 10px;
+        /* Adjust as needed */
+      }
+
+      .search {
+        width: 100%;
+        text-align: center;
+      }
+
+      /*  Responsive Image with Transparent Text */
+
+      .container-1 {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .container img {
+        vertical-align: middle;
+        width: 100%;
+      }
+
+      .container-1 .content {
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        /* Fallback color */
+        background: rgba(0, 0, 0, 0.5);
+        /* Black background with 0.5 opacity */
+        color: #e4cfcf;
+        width: 100%;
+        padding: 20px;
+      }
+
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="color: red;">
+        <img src="IMG_5357 (4).PNG" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+        MEDICAREPLUS
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item" style="display: flex;">
+            <!-- Button trigger modal -->
+            <a class="nav-link active" style="color: white;" aria-current="page" data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+              Home
+            </a>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white;">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body" style="color: white;">
+                    ...Woo-hoo, you're reading this text in a modal!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Find_Doctor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Hospital</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Online_Consultation</a>
+
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pharma_shop</a>
+          </li>
+        </ul>
+
+
+
+
+
+
+        <div class="btn-group" role="group" aria-label="Third group">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- You can add any list items here if needed -->
+          </ul>
+          <li class="nav-item">
+            <div class="btn-group">
+              <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" type="button"
+                style="background-color: rgb(92, 228, 126); color: white; border-radius: 25px; border-style: none;">Login</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">User Login</a></li>
+                <li><a class="dropdown-item" href="#">Hospital Login</a></li>
+                <li><a class="dropdown-item" href="#">Pharmashop Login</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Make New Account</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="btn-group">
+              <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" type="button"
+                style="background-color: rgb(160, 230, 132); color: white; border-radius: 25px; border-style: none;">Signup</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">User Signup</a></li>
+                <li><a class="dropdown-item" href="#">Hospital Signup</a></li>
+                <li><a class="dropdown-item" href="#">Pharmashop Signup</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <button type="button"
+              style="background-color: rgb(253, 7, 7); color: white; border-radius: 25px; border-style: none;"
+              class="btn btn-info">Emergency_Call</button>
+          </li>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-content-body" style="background-color: #191f20;">
+
+    <div class="container">
+      <div class="search-bar">
+
+        <input type="text" id="locationInput" placeholder="Enter location">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <!-- ... (existing SVG content) ... -->
+          <path d="M10 0L20 20H0L10 0Z" fill="black" />
+        </svg>
+        <div class="dropdown" id="locationDropdown">
+          <div class="dropdown-option" data-value="currentLocation">
+            <i class="fas fa-map-marker-alt"></i> Use My Location
+          </div>
+          <div id="dynamicLocationOptions"></div>
+        </div>
+      </div>
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Search for doctors, hospitals, clinics, and pharma shops">
+        <button id="searchButton"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+
+    <div class="content_body" style="background-color: #191f20;">
+      <div class="sidenav" id="sidenav">
+        <div class="close-button">
+          <span style="font-size: 24px; cursor: pointer;" onclick="closeNav()">&times; Close</span>
+        </div>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <div class="content">
+        <div class="menu-toggle" id="menu-toggle" onclick="toggleNav()">
+          <span style="font-size: 30px; cursor: pointer;">&#9776;></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-1">
+    <img src="container-3.jpg" alt="Notebook" style="width:100%;">
+    <div class="content">
+      <h1>medicare plus</h1>
+      <p>India's leading integrated healthcare company, MedicarePlus has been on a mission to make better quality
+        healthcare accessible and affordable to all by connecting the entire healthcare ecosystem including patients,
+        doctors, clinics, hospitals, pharmacies, and diagnostics in a seamless and cohesive manner</p>
+    </div>
+  </div>
+
+
+
+
+  <div class="container-2">
+    <!-- Example: List of Top Rated Hospitals -->
+
+    <section class="image-section">
+      <div class="image-section-text">
+        <h2>Top Rated Hospitals</h2>
+        <p>Discover the best hospitals in your city.</p>
+        <ul class="no-bullets">
+          <li>
+            <h3>25+</h3> 5-star hospitals
+          </li>
+          <li>
+            <h3>350+</h3> beds availability in your city
+          </li>
+          <div class="slideshow-container">
+
+            <div class="mySlides fade">
+              <div class="numbertext">1 / 3</div>
+              <img src="apollo-.jpg" style="width:100%">
+              <div class="text">Caption Text</div>
+            </div>
+
+            <div class="mySlides fade">
+              <div class="numbertext">2 / 3</div>
+              <img src="apollo-hospital-1.jpg" style="width:100%">
+              <div class="text">Caption Two</div>
+            </div>
+
+            <div class="mySlides fade">
+              <div class="numbertext">3 / 3</div>
+              <img src="Oldhospital.jpg" style="width:100%">
+              <div class="text">Caption Three</div>
+            </div>
+
+          </div>
+          <br>
+
+          <div style="text-align:center">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+
+
+          <!-- Add more hospital details as needed -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- Example: Search for Doctors -->
+    <section class="image-section">
+
+      <div class="image-section-text">
+        <h2>Find a Doctor</h2>
+        <p>Search for experienced doctors in your area.</p>
+      </div>
+      <!-- Add a doctor search form or content here -->
+      <div class="container">
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="card">
+              <img src="doctor1.jpg" alt="Dr. Jane" style="width:100% ; height:200px">
+              <div class="container">
+                <h2>Dr. Jane Doe</h2>
+                <p class="title">Cardiologist</p>
+                <p>Expert in cardiovascular health and treatment. </p>
+                <p>dr.jane@example.com</p>
+                <p><button class="button">Book Appointment</button></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="card">
+              <img src="doctor2.jpg" alt="Dr. Mike" style="width:100% ;height:200px">
+              <div class="container">
+                <h2>Dr. Mike Ross</h2>
+                <p class="title">Pediatrician</p>
+                <p>Specializes in child healthcare.</p>
+                <p>dr.mike@example.com</p>
+                <p><button class="button">Book Appointment</button></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="card">
+              <img src="doctor3.jpg" alt="Dr. John" style="width:100% ; height:200px">
+              <div class="container">
+                <h2>Dr. John Doe</h2>
+                <p class="title">Orthopedic Surgeon</p>
+                <p>Specializes in orthopedic surgery and bone health.</p>
+                <p>dr.john@example.com</p>
+                <p><button class="button">Book Appointment</button></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Example: Online Consultation -->
+    <section class="image-section">
+      <img src="online-consultation-image.jpg" alt="Online Consultation Image">
+      <div class="image-section-text">
+        <h2>Online Consultation</h2>
+        <p>Connect with healthcare professionals online.</p>
+      </div>
+      <!-- Add online consultation information or form here -->
+    </section>
+
+    <!-- Example: Pharmacy Locator -->
+    <section class="image-section">
+      <img src="pharmacy-image.jpg" alt="Pharmacy Image">
+      <div class="image-section-text">
+        <h2>Pharmacy Shops</h2>
+        <p>Locate nearby pharmacies for your medication needs.</p>
+      </div>
+      <!-- Add pharmacy shop search or information here -->
+    </section>
+  </div>
+
+  <footer class="c-footer">
+    <div class="c-footer__wrapper">
+        <div class="c-footer__content" >
+            <div class="c-footer__column">
+                <div data-qa-id="footer-heading" class="c-footer__title"><span>Medicare Plus</span>
+                </div>
+              <div>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>About</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Blog</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Careers</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Press</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Contact Us</span></a></div>
+            </div>
+            <div class="c-footer__column">
+                <div data-qa-id="footer-heading" class="c-footer__title"><span>For patients</span></div>
+                <div>
+                <a data-qa-id="footer-item" target="_self" class="c-footer__item" href="" rel=""><span>Search for doctors</span></a><a data-qa-id="footer-item" target="_self" class="c-footer__item" href="/ludhiana/clinics" rel=""><span>Search for clinics</span></a>
+                <a data-qa-id="footer-item" target="_self" class="c-footer__item" href="" rel=""><span>Search for hospitals</span></a>
+                <a data-qa-id="footer-item" target="_self" class="c-footer__item" href="" rel=""><span>Book Diagnostic Tests</span></a>
+                <a data-qa-id="footer-item" target="_self" class="c-footer__item" href="" rel=""><span>Medicare Plus</span></a>
+                <a data-qa-id="footer-item" target="_self" class="c-footer__item" href="" rel=""><span>Covid Hospital listing</span></a>
+                <a data-qa-id="footer-item" target="_self" class="c-footer__item" href="" rel=""><span>Medicare Plus Care Clinics</span></a>
+                <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Read health articles</span></a>
+                <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Read about medicines</span></a>
+                 <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Health app</span></a>
+              
+              </div>
+            </div>
+            <div class="c-footer__column">
+                <div class="c-footer__row">
+                    <div data-qa-id="footer-heading" class="c-footer__title"><span>For doctors</span></div>
+                    <div>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel="">
+                      <span>Medicare Plus Profile</span>
+                    </a>
+                    </div>
+                </div>
+                <div class="c-footer__row">
+                    <div data-qa-id="footer-heading" class="c-footer__title"><span>For clinics</span>
+                    </div>
+                    <div><a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Ray by Medicare Plus</span></a>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Medicare Plus Reach</span></a>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Ray Tab</span></a>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Medicare Plus Pro</span></a></div>
+                </div>
+            </div>
+            <div class="c-footer__column">
+                <div class="c-footer__row">
+                    <div data-qa-id="footer-heading" class="c-footer__title"><span>For hospitals</span></div>
+                    <div><a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Insta by Medicare Plus</span></a>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Qikwell by Medicare Plus</span></a>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Medicare Plus Profile</span></a>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Medicare Plus Reach</span></a>
+                      <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Medicare Plus Drive</span></a>
+                    </div>
+                </div>
+                <div class="c-footer__row">
+                    <div data-qa-id="footer-heading" class="c-footer__title"><span>For Corporates</span></div>
+                    <div><a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Wellness Plans</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="c-footer__column">
+                <div data-qa-id="footer-heading" class="c-footer__title"><span>More</span></div>
+                <div><a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Help</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Developers</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Privacy Policy</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Terms &amp; Conditions</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>PCS T&amp;C</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel=""><span>Healthcare Directory</span></a><a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="/health-wiki/" rel=""><span>Medicare Plus Health Wiki</span></a>
+                </div>
+            </div>
+            <div class="c-footer__column">
+                <div data-qa-id="footer-heading" class="c-footer__title"><span>Social</span></div>
+                <div><a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel="nofollow"><span>Facebook</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel="nofollow"><span>Twitter</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel="nofollow"><span>LinkedIn</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel="nofollow"><span>Youtube</span></a>
+                  <a data-qa-id="footer-item" target="_blank" class="c-footer__item" href="" rel="nofollow"><span>Github</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="c-footer__copyright"><span class="LazyLoad is-visible"><img src="png.png" alt="Medicare Plus" class="c-footer__logo"></span>
+            <div class="c-copyright"><span>Copyright © 2023, Medicare Plus. </span>
+              <span>All rights reserved.</span></div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+
+
+  <script>
+    function toggleNav() {
+      const sidenav = document.getElementById('sidenav');
+      sidenav.classList.toggle('open');
+    }
+
+    function closeNav() {
+      const sidenav = document.getElementById('sidenav');
+      sidenav.classList.remove('open');
+    }
+
+    const searchIcon = document.querySelector('.search-icon');
+    const dropdown = document.getElementById('locationDropdown');
+    const locationInput = document.getElementById('locationInput');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const dynamicLocationOptions = document.getElementById('dynamicLocationOptions');
+
+    function getLocationOptions(query) {
+      const locations = ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata'];
+      const filteredLocations = locations.filter(location => location.toLowerCase().includes(query.toLowerCase()));
+      return filteredLocations;
+    }
+
+    searchIcon.addEventListener('click', () => {
+      dropdown.classList.toggle('open');
+      searchIcon.classList.toggle('v');
+    });
+
+    locationInput.addEventListener('click', () => {
+      dropdown.classList.add('open');
+      searchIcon.classList.add('v');
+    });
+
+    dropdown.addEventListener('click', (event) => {
+      const selectedOption = event.target.closest('.dropdown-option');
+      if (selectedOption) {
+        if (selectedOption.dataset.value === 'currentLocation') {
+          locationInput.value = getCurrentLocation();
+        } else {
+          locationInput.value = selectedOption.textContent;
+        }
+        dropdown.classList.remove('open');
+        searchIcon.classList.remove('v');
+      }
+    });
+
+    locationInput.addEventListener('input', () => {
+      const query = locationInput.value;
+      const filteredLocations = getLocationOptions(query);
+
+      dynamicLocationOptions.innerHTML = '';
+
+      filteredLocations.forEach(location => {
+        const option = document.createElement('div');
+        option.classList.add('dropdown-option');
+        option.textContent = location;
+        option.dataset.value = location;
+        dynamicLocationOptions.appendChild(option);
+      });
+    });
+
+    searchButton.addEventListener('click', () => {
+      const location = locationInput.value;
+      const searchTerm = searchInput.value;
+      console.log('Searching for:', searchTerm, 'in', location);
+    });
+
+
+
+    // js of hospital images
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      setTimeout(showSlides, 3000); // Change image every 2 seconds
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
